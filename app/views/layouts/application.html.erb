@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CoffeeShop</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <% if current_user %>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">
+          <span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>
+          Coffee Shop
+        </a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="<%= navbar_active_class('drink_categories') %>">
+          <%= link_to "Category", drink_categories_path %>
+        </li>
+        <li class="<%= navbar_active_class('drink_sizes') %>">
+          <%= link_to "Size", drink_sizes_path %>
+        </li>
+        <li class="<%= navbar_active_class('drinks') %>">
+          <%= link_to "Drinks", drinks_path %>
+        </li>
+        <li class="<%= navbar_active_class('orders') %>">
+          <%= link_to "Orders", orders_path %>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <%= link_to "#{user_identity} <span class='caret'></span>".html_safe, '', class: 'dropdown-toggle', title: '', data: { toggle: 'dropdown' } %>
+          <ul class="dropdown-menu">
+            <li>
+              <%= link_to "<span class='glyphicon glyphicon-log-out'></span> Sign out".html_safe, destroy_user_session_path, :method => :delete %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <% end %>
+
+  <%= render 'layouts/messages' %>
+  <div class="container">
+    <%= yield %>
+  </div>
+
+</body>
+</html>
