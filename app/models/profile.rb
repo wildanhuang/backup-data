@@ -25,14 +25,6 @@ class Profile < ActiveRecord::Base
     if folders.present?
       # repeat function
     end
-    byebug
-    a = ""
-
-
-
-
-
-    z
   end
 
   private
