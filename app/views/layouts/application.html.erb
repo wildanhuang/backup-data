@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CoffeeShop</title>
+  <title>Backup Data Storage</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -12,22 +12,13 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="/">
-          <span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>
-          Coffee Shop
+          <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+          Backup Data Storage
         </a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="<%= navbar_active_class('drink_categories') %>">
-          <%= link_to "Category", drink_categories_path %>
-        </li>
-        <li class="<%= navbar_active_class('drink_sizes') %>">
-          <%= link_to "Size", drink_sizes_path %>
-        </li>
-        <li class="<%= navbar_active_class('drinks') %>">
-          <%= link_to "Drinks", drinks_path %>
-        </li>
-        <li class="<%= navbar_active_class('orders') %>">
-          <%= link_to "Orders", orders_path %>
+        <li class="<%= navbar_active_class('profiles') %>">
+          <%= link_to "Profiles", profiles_path %>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

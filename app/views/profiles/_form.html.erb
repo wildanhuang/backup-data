@@ -1,0 +1,27 @@
+<div class="col-md-6">
+  <%= form_for @profile, html: {class: 'form-horizontal'} do |f| %>
+    <div class="form-group">
+      <label class="col-sm-4 control-label">Profile Name</label>
+      <div class="col-sm-8">
+        <%= f.text_field :name, class: 'form-control', placeholder: 'Name' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label">Which Folder(s)</label>
+      <div class="col-sm-8">
+        <%= f.text_field :folders, class: 'form-control', placeholder: '/home/backup-folders' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label">Exclusion Folder(s)</label>
+      <div class="col-sm-8">
+        <%= f.text_field :exclusion, class: 'form-control', placeholder: '/home/exclusion-folder' %>
+      </div>
+    </div>
+
+    <div class="pull-right">
+      <%= cancel_button(profiles_path) %>
+      <%= save_button %>
+    </div>
+  <% end %>
+</div>
