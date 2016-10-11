@@ -28,9 +28,6 @@ gem "rmagick"
 gem 'carrierwave', '>= 0.11.0', '< 2.0'
 gem 'mini_magick'
 
-# To store history
-gem 'paper_trail', '~> 4.2.0'
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

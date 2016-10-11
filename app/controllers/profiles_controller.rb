@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
-  # before_action :set_profile, only: [:edit, :update, :destroy]
+  before_action :set_profile, only: [:edit, :update, :destroy]
 
   def index
     @profiles = Profile.all
@@ -26,6 +26,11 @@ class ProfilesController < ApplicationController
   end
 
   def update
+    if @profile.save
+      redirect_to profiles_path, :flash => { :notice => "Succeed to update profile" }
+    else
+      redirect_to edit_profile_path(@profile), :flash => { :error => @profile.errors.full_messages.join(', ') }
+    end
   end
 
   def destroy
