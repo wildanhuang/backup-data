@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
+  # before_action :set_profile, only: [:edit, :update, :destroy]
 
   def index
     @profiles = Profile.all
@@ -33,5 +34,9 @@ class ProfilesController < ApplicationController
   private
     def profile_params
       params.require(:profile).permit(:name, :folders, :exclusion)
+    end
+
+    def set_profile      
+      @profile = Profile.find_by(id: params[:id])
     end
 end

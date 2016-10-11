@@ -12,6 +12,6 @@ class Profile < ActiveRecord::Base
     end
 
     def backup_records
-      BackupGenerator::Process.backup(self.id, self.folders)
+      BackupGenerator::Process.backup(self.id, self.folders, self.exclusion)
     end
 end

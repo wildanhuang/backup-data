@@ -1,12 +1,17 @@
 module BackupGenerator
   class Process
-    def self.backup(profile_id, folder)
+    def self.backup(profile_id, folder, exclusion=nil)
       profile = Profile.find_by(id: profile_id)
       folders = []
       files = []
 
       Dir.entries(folder).select {|entry| !(entry =='.' || entry == '..') }.each do |entry|
         file = File.join(folder, entry)
+        
+        if exclusion.present?
+          next if file == exclusion || file.include?(exclusion)
+        end
+
         if File.directory? file
           folders << file
         else
