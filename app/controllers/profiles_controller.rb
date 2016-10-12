@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_profile, only: [:edit, :update, :destroy]
+  before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
   def index
     @profiles = Profile.all
@@ -33,7 +33,8 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def destroy
+  def download_file
+    send_file Version.find_by(id: params[:id]).file.path
   end
 
   private
@@ -42,6 +43,6 @@ class ProfilesController < ApplicationController
     end
 
     def set_profile      
-      @profile = Profile.find_by(id: params[:id])
+      @profile = Profile.includes(:profile_details, backup_files:[:versions]).find_by(id: params[:id])
     end
 end

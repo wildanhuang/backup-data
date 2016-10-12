@@ -6,6 +6,7 @@
         <%= f.text_field :name, class: 'form-control', placeholder: 'Name' %>
       </div>
     </div>
+    <% if params[:action] == 'new' %>
     <div class="form-group">
       <label class="col-sm-4 control-label">Which Folder(s)</label>
       <div class="col-sm-8">
@@ -18,6 +19,7 @@
         <%= f.text_field :exclusion, class: 'form-control', placeholder: '/home/exclusion-folder' %>
       </div>
     </div>
+    <% end %>
 
     <div class="pull-right">
       <%= cancel_button(profiles_path) %>

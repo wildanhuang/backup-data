@@ -1,0 +1,54 @@
+<h2><%= @profile.name %></h2>
+
+<h3><span class="glyphicon glyphicon-th-list"></span> History Backup</h3>
+
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th width="10%">No</th>
+      <th>New File(s)</th>
+      <th>Updated File(s)</th>
+      <th>Backup Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @profile.profile_details.each_with_index do |detail, index| %>
+    <tr>
+      <td><%= index + 1 %></td>
+      <td><%= detail.new_files %></td>
+      <td><%= detail.updated_files %></td>
+      <td><%= detail.created_at.strftime("%d %b %Y - %I:%M %p") %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<br/>
+<h3><span class="glyphicon glyphicon-hdd"></span> Browse all file(s)</h3>
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th width="10%">No</th>
+      <th>Filename</th>
+      <th>Size</th>
+      <th>Modified Time</th>
+      <th>Original Path</th>
+      <th>Version(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @profile.backup_files.order(:id).each_with_index do |file, index| %>
+    <tr>
+      <td><%= index + 1 %></td>
+      <td><%= File.basename(file.file.path) %></td>
+      <td><%= number_to_human_size(File.stat(file.file.path).size) %></td>
+      <td><%= File.stat(file.file.path).mtime.strftime("%d %b %Y - %I:%M %p") %></td>
+      <td><%= file.file_url %></td>
+      <td>
+        <% file.versions.order(:id).each_with_index do |version, index| %>
+          <%= link_to "Version #{index + 1}", download_file_profiles_path(id: version.id), {target: '_blank'} %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
