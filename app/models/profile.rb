@@ -18,6 +18,7 @@ class Profile < ActiveRecord::Base
     end
 
     def update_records
+      self.backup_files.update_all(is_new: nil) self.backup_files.present?
       BackupGenerator::Process.backup(self.id, self.folders, self.exclusion, 'update')
     end
 end

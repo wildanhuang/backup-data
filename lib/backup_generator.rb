@@ -32,7 +32,7 @@ module BackupGenerator
             unless flag
               # create new version
               backup_file.versions.create(file: old_file)
-              backup_file.update_attribute('file', new_file)
+              backup_file.update_attributes(file: new_file, is_new: false)
             end
           else
             profile.backup_files.create(file_url: file, file: Pathname.new(file).open)
