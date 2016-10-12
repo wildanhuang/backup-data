@@ -1,4 +1,5 @@
 class Profile < ActiveRecord::Base
+  has_many :profile_details, dependent: :destroy
   has_many :backup_files, dependent: :destroy
 
   validate :check_file_or_directory
@@ -14,11 +15,13 @@ class Profile < ActiveRecord::Base
     end
 
     def backup_records
-      BackupGenerator::Process.backup(self.id, self.folders, self.exclusion, 'create')
+      profile_detail = self.profile_details.create
+      BackupGenerator::Process.backup(self.id, self.folders, self.exclusion, 'create', profile_detail.id)
     end
 
     def update_records
-      self.backup_files.update_all(is_new: nil) self.backup_files.present?
-      BackupGenerator::Process.backup(self.id, self.folders, self.exclusion, 'update')
+      profile_detail = self.profile_details.create
+      self.backup_files.update_all(is_new: nil) if self.backup_files.present?
+      BackupGenerator::Process.backup(self.id, self.folders, self.exclusion, 'update', profile_detail.id)
     end
 end

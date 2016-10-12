@@ -1,7 +1,8 @@
 module BackupGenerator
   class Process
-    def self.backup(profile_id, folder, exclusion=nil, action=nil)
+    def self.backup(profile_id, folder, exclusion, action, profile_detail_id)
       profile = Profile.find_by(id: profile_id)
+      profile_detail = profile.profile_details.find_by(id: profile_detail_id)
 
       folders = []
       files = []
@@ -33,18 +34,20 @@ module BackupGenerator
               # create new version
               backup_file.versions.create(file: old_file)
               backup_file.update_attributes(file: new_file, is_new: false)
+              profile_detail.updated_files += 1
             end
           else
             profile.backup_files.create(file_url: file, file: Pathname.new(file).open)
+            profile_detail.new_files += 1
           end
-          
         end
+        profile_detail.save
       end
 
       if folders.present?
         # repeat function
         folders.each do |data|
-          BackupGenerator::Process.backup(profile_id, data, profile.exclusion, action)
+          BackupGenerator::Process.backup(profile_id, data, profile.exclusion, action, profile_detail_id)
         end
       end
     end
